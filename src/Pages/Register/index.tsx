@@ -1,23 +1,11 @@
-// import { useContext } from "react";
-// import { iRegisterUser, UserContext } from "../../Contexts/UserContext";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { RegisterContainer } from "./style";
 import { useNavigate } from "react-router-dom";
 import { instance } from "../../Services/api";
-// import { FcBusinessContact } from "react-icons/fc";
-// import logo from "../../Assets/Logo.png";
+import { toast } from "react-toastify";
 
-// export interface iRegisterUser {
-//   name: string;ok
-//   email: string;ok
-//   password: string;ok
-//   passwordConfirm: string;ok
-//   isAdm: boolean;
-//   phone: string;ok
-//   profileImage: null | string;ok
-// }
 const options = [
   "restaurante",
   "lanchonete",
@@ -76,6 +64,7 @@ const schema = yup.object().shape({
   typeRestaurant: yup.string().required(),
 });
 export const Register = () => {
+  const navigate = useNavigate();
   const registerUser = (data: iRegisterUser) => {
     if (data.profileImage === "") {
       data.profileImage =
@@ -84,18 +73,17 @@ export const Register = () => {
     instance
       .post<iRegisterUser>("/restaurants", data)
       .then((response) => {
-        console.log(response);
         navigate("/login");
 
-        // sucessRegister("Registro realizado com sucesso!");
+        response && toast.success("Registro realizado com sucesso!");
       })
       .catch((err) => {
-        console.log(err, "ERRO> AQUII");
+        console.log(err);
 
-        // toast.error(`Ops, houve um erro em nosso servidor. Tente novamente!`);
+        err &&
+          toast.error(`Ops, houve um erro em nosso servidor. Tente novamente!`);
       });
   };
-  const navigate = useNavigate();
 
   const {
     register,
@@ -105,15 +93,9 @@ export const Register = () => {
     resolver: yupResolver(schema),
   });
 
-  // const { registerUser } = useContext(UserContext);
-
   return (
     <RegisterContainer>
       <div className="containerLogoAndBtnReturn">
-        {/* <FcBusinessContact
-          className="logoIcon"
-          style={{ width: "100%", height: "100%" }}
-        /> */}
         <button className="returnBtn" onClick={() => navigate("/login")}>
           Voltar
         </button>
