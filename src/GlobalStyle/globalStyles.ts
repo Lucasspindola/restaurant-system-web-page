@@ -49,6 +49,9 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+button{
+    outline: none;
+}
 
 :root{
     --font-family-title: 'Lexend', sans-serif;
