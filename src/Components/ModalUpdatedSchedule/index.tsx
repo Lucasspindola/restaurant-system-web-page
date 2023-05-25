@@ -50,6 +50,7 @@ export const ModalUpdatedSchedulester = () => {
   const [currentClosingTimeState, setCurrentClosingTimeState] = useState(
     currentOpeningTime?.closingTime
   );
+
   const {
     register,
     handleSubmit,
@@ -79,6 +80,8 @@ export const ModalUpdatedSchedulester = () => {
           openTime: "",
           closingTime: "",
         });
+        setCurrentOpenTimeState("00:00");
+        setCurrentClosingTimeState("00:00");
       })
       .catch((err) => {
         err && toast.error("Ops!! Algo errado aconteceu.Tente mais tarde!");

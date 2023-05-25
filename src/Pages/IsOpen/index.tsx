@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { instance } from "../../Services/api";
 import { ContainerDashboard } from "./style";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export interface iContextContactDashboard {
   setModalRegister: React.Dispatch<React.SetStateAction<boolean>>;
@@ -10,12 +10,6 @@ export interface iContextContactDashboard {
 interface ITypeRestaurant {
   id: string;
   name: string;
-}
-
-interface IOpeningHour {
-  id: string;
-  openTime: string;
-  closingTime: string;
 }
 
 interface IRestaurant {
@@ -34,8 +28,6 @@ interface IRestaurant {
 export const IsOpen = () => {
   const [restaurants, setRestaurants] = useState<IRestaurant[]>([]);
   const navigate = useNavigate();
-
-  const token = window.localStorage.getItem("authToken");
 
   useEffect(() => {
     const listRestaurants = () => {
